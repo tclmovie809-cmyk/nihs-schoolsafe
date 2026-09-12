@@ -89,6 +89,7 @@
         opacity: 0;
         transform: translateY(25px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -103,7 +104,9 @@
   <div class="screen" id="welcomeScreen">
     <div class="box">
 
-      <img src="school-logo.jpg" class="logo" alt="NIHS School Logo">
+      <img src="school-logo.jpg"
+           class="logo"
+           alt="NIHS School Logo">
 
       <h1>NIHS SCHOOLSAFE</h1>
 
@@ -112,7 +115,9 @@
         Student Safety & Reporting System
       </p>
 
-      <button onclick="showStudentType()">NEXT</button>
+      <button onclick="showStudentType()">
+        NEXT
+      </button>
 
     </div>
   </div>
@@ -128,19 +133,22 @@
         What type of student are you?
       </p>
 
-      <button class="choice" onclick="selectLevel('Elementary')">
+      <button class="choice"
+              onclick="selectLevel('Elementary')">
         🏫 ELEMENTARY
         <br>
         <small>Grades 1–6</small>
       </button>
 
-      <button class="choice" onclick="selectLevel('Junior High School')">
+      <button class="choice"
+              onclick="selectLevel('Junior High School')">
         🎓 JUNIOR HIGH SCHOOL
         <br>
         <small>Grades 7–10</small>
       </button>
 
-      <button class="choice" onclick="selectLevel('Senior High School')">
+      <button class="choice"
+              onclick="selectLevel('Senior High School')">
         🎓 SENIOR HIGH SCHOOL
         <br>
         <small>Grades 11–12</small>
@@ -153,12 +161,56 @@
   <script>
 
     function showStudentType() {
-      document.getElementById("welcomeScreen").classList.add("hidden");
-      document.getElementById("studentScreen").classList.remove("hidden");
+
+      document
+        .getElementById("welcomeScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("studentScreen")
+        .classList.remove("hidden");
     }
 
+
     function selectLevel(level) {
-      alert("Selected: " + level);
+
+      let grades = "";
+
+      if (level === "Elementary") {
+
+        grades =
+          "Grade 1\n" +
+          "Grade 2\n" +
+          "Grade 3\n" +
+          "Grade 4\n" +
+          "Grade 5\n" +
+          "Grade 6";
+
+      }
+
+      else if (level === "Junior High School") {
+
+        grades =
+          "Grade 7\n" +
+          "Grade 8\n" +
+          "Grade 9\n" +
+          "Grade 10";
+
+      }
+
+      else {
+
+        grades =
+          "Grade 11\n" +
+          "Grade 12";
+      }
+
+      alert(
+        "You selected: " +
+        level +
+        "\n\nAvailable Grades:\n\n" +
+        grades
+      );
     }
 
   </script>
