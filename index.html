@@ -14,20 +14,24 @@
 
     body {
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #16002b, #4b0082, #7b2cbf);
       color: white;
-      text-align: center;
     }
 
-    .welcome {
-      width: 90%;
+    .screen {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 25px;
+    }
+
+    .box {
+      width: 100%;
       max-width: 500px;
-      padding: 40px 25px;
-      animation: fadeIn 1.5s ease;
+      animation: fadeIn 1s ease;
     }
 
     .logo {
@@ -39,19 +43,20 @@
 
     h1 {
       font-size: 38px;
-      margin-bottom: 10px;
       letter-spacing: 2px;
+      margin-bottom: 12px;
     }
 
     p {
       font-size: 16px;
+      line-height: 1.6;
       opacity: 0.9;
       margin-bottom: 30px;
     }
 
     button {
       border: none;
-      padding: 15px 45px;
+      padding: 15px 50px;
       border-radius: 30px;
       background: white;
       color: #4b0082;
@@ -62,6 +67,21 @@
 
     button:active {
       transform: scale(0.96);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .choice {
+      display: block;
+      width: 100%;
+      margin: 15px 0;
+      padding: 18px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
     @keyframes fadeIn {
@@ -79,25 +99,68 @@
 
 <body>
 
-  <div class="welcome">
+  <!-- WELCOME SCREEN -->
+  <div class="screen" id="welcomeScreen">
+    <div class="box">
 
-    <img src="school-logo.jpg" class="logo" alt="NIHS School Logo">
+      <img src="school-logo.jpg" class="logo" alt="NIHS School Logo">
 
-    <h1>NIHS SCHOOLSAFE</h1>
+      <h1>NIHS SCHOOLSAFE</h1>
 
-    <p>
-      New Israel High School<br>
-      Student Safety & Reporting System
-    </p>
+      <p>
+        New Israel High School<br>
+        Student Safety & Reporting System
+      </p>
 
-    <button onclick="start()">NEXT</button>
+      <button onclick="showStudentType()">NEXT</button>
 
+    </div>
   </div>
 
+
+  <!-- STUDENT TYPE SCREEN -->
+  <div class="screen hidden" id="studentScreen">
+    <div class="box">
+
+      <h1>WELCOME!</h1>
+
+      <p>
+        What type of student are you?
+      </p>
+
+      <button class="choice" onclick="selectLevel('Elementary')">
+        🏫 ELEMENTARY
+        <br>
+        <small>Grades 1–6</small>
+      </button>
+
+      <button class="choice" onclick="selectLevel('Junior High School')">
+        🎓 JUNIOR HIGH SCHOOL
+        <br>
+        <small>Grades 7–10</small>
+      </button>
+
+      <button class="choice" onclick="selectLevel('Senior High School')">
+        🎓 SENIOR HIGH SCHOOL
+        <br>
+        <small>Grades 11–12</small>
+      </button>
+
+    </div>
+  </div>
+
+
   <script>
-    function start() {
-      alert("Welcome to NIHS SCHOOLSAFE!");
+
+    function showStudentType() {
+      document.getElementById("welcomeScreen").classList.add("hidden");
+      document.getElementById("studentScreen").classList.remove("hidden");
     }
+
+    function selectLevel(level) {
+      alert("Selected: " + level);
+    }
+
   </script>
 
 </body>
