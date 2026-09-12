@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIHS SCHOOLSAFE</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #16002b, #4b0082, #7b2cbf);
+      color: white;
+      text-align: center;
+    }
+
+    .welcome {
+      width: 90%;
+      max-width: 500px;
+      padding: 40px 25px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .logo {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 30px;
+    }
+
+    button {
+      border: none;
+      padding: 15px 45px;
+      border-radius: 30px;
+      background: white;
+      color: #4b0082;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="welcome">
+
+    <img src="school-logo.jpg" class="logo" alt="NIHS School Logo">
+
+    <h1>NIHS SCHOOLSAFE</h1>
+
+    <p>
+      New Israel High School<br>
+      Student Safety & Reporting System
+    </p>
+
+    <button onclick="start()">NEXT</button>
+
+  </div>
+
+  <script>
+    function start() {
+      alert("Welcome to NIHS SCHOOLSAFE!");
+    }
+  </script>
+
+</body>
+</html>
