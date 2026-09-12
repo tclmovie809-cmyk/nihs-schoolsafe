@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>NIHS SCHOOLSAFE</title>
 
   <style>
@@ -31,7 +32,7 @@
     .box {
       width: 100%;
       max-width: 500px;
-      animation: fadeIn 1s ease;
+      animation: fadeIn 0.7s ease;
     }
 
     .logo {
@@ -42,9 +43,14 @@
     }
 
     h1 {
-      font-size: 38px;
+      font-size: 36px;
       letter-spacing: 2px;
       margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
     }
 
     p {
@@ -56,32 +62,61 @@
 
     button {
       border: none;
-      padding: 15px 50px;
+      padding: 15px 45px;
       border-radius: 30px;
       background: white;
       color: #4b0082;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     button:active {
-      transform: scale(0.96);
-    }
-
-    .hidden {
-      display: none;
+      transform: scale(0.95);
     }
 
     .choice {
       display: block;
       width: 100%;
-      margin: 15px 0;
+      margin: 13px 0;
       padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .choice:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .grade-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .grade {
+      padding: 20px 10px;
       border-radius: 15px;
       background: rgba(255,255,255,0.15);
       color: white;
       border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .back {
+      margin-top: 25px;
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 11px 25px;
+      font-size: 14px;
+    }
+
+    .hidden {
+      display: none;
     }
 
     @keyframes fadeIn {
@@ -100,13 +135,19 @@
 
 <body>
 
-  <!-- WELCOME SCREEN -->
+  <!-- =========================
+       WELCOME SCREEN
+  ========================== -->
+
   <div class="screen" id="welcomeScreen">
+
     <div class="box">
 
-      <img src="school-logo.jpg"
-           class="logo"
-           alt="NIHS School Logo">
+      <img
+        src="school-logo.jpg"
+        class="logo"
+        alt="NIHS School Logo"
+      >
 
       <h1>NIHS SCHOOLSAFE</h1>
 
@@ -120,43 +161,95 @@
       </button>
 
     </div>
+
   </div>
 
 
-  <!-- STUDENT TYPE SCREEN -->
+  <!-- =========================
+       STUDENT TYPE
+  ========================== -->
+
   <div class="screen hidden" id="studentScreen">
+
     <div class="box">
 
-      <h1>WELCOME!</h1>
+      <h2>WELCOME!</h2>
 
       <p>
         What type of student are you?
       </p>
 
-      <button class="choice"
-              onclick="selectLevel('Elementary')">
+      <button
+        class="choice"
+        onclick="showGrades('Elementary')"
+      >
         🏫 ELEMENTARY
         <br>
         <small>Grades 1–6</small>
       </button>
 
-      <button class="choice"
-              onclick="selectLevel('Junior High School')">
+
+      <button
+        class="choice"
+        onclick="showGrades('Junior High School')"
+      >
         🎓 JUNIOR HIGH SCHOOL
         <br>
         <small>Grades 7–10</small>
       </button>
 
-      <button class="choice"
-              onclick="selectLevel('Senior High School')">
+
+      <button
+        class="choice"
+        onclick="showGrades('Senior High School')"
+      >
         🎓 SENIOR HIGH SCHOOL
         <br>
         <small>Grades 11–12</small>
       </button>
 
     </div>
+
   </div>
 
+
+  <!-- =========================
+       GRADE SELECTION
+  ========================== -->
+
+  <div class="screen hidden" id="gradeScreen">
+
+    <div class="box">
+
+      <h2 id="levelTitle">
+        Select Your Grade
+      </h2>
+
+      <p>
+        Please select your grade level.
+      </p>
+
+      <div
+        class="grade-grid"
+        id="gradeButtons"
+      >
+      </div>
+
+      <button
+        class="back"
+        onclick="backToStudentType()"
+      >
+        ← BACK
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
 
   <script>
 
@@ -169,51 +262,118 @@
       document
         .getElementById("studentScreen")
         .classList.remove("hidden");
+
     }
 
 
-    function selectLevel(level) {
+    function showGrades(level) {
 
-      let grades = "";
+      document
+        .getElementById("studentScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("gradeScreen")
+        .classList.remove("hidden");
+
+
+      document
+        .getElementById("levelTitle")
+        .textContent = level;
+
+
+      const gradeButtons =
+        document.getElementById("gradeButtons");
+
+
+      gradeButtons.innerHTML = "";
+
+
+      let grades = [];
+
 
       if (level === "Elementary") {
 
-        grades =
-          "Grade 1\n" +
-          "Grade 2\n" +
-          "Grade 3\n" +
-          "Grade 4\n" +
-          "Grade 5\n" +
-          "Grade 6";
+        grades = [
+          "Grade 1",
+          "Grade 2",
+          "Grade 3",
+          "Grade 4",
+          "Grade 5",
+          "Grade 6"
+        ];
 
       }
+
 
       else if (level === "Junior High School") {
 
-        grades =
-          "Grade 7\n" +
-          "Grade 8\n" +
-          "Grade 9\n" +
-          "Grade 10";
+        grades = [
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 10"
+        ];
 
       }
 
-      else {
 
-        grades =
-          "Grade 11\n" +
-          "Grade 12";
+      else if (level === "Senior High School") {
+
+        grades = [
+          "Grade 11",
+          "Grade 12"
+        ];
+
       }
+
+
+      grades.forEach(function(grade) {
+
+        const button =
+          document.createElement("button");
+
+        button.className = "grade";
+
+        button.textContent = grade;
+
+        button.onclick = function() {
+          selectGrade(level, grade);
+        };
+
+        gradeButtons.appendChild(button);
+
+      });
+
+    }
+
+
+    function selectGrade(level, grade) {
 
       alert(
-        "You selected: " +
+        "Selected:\n\n" +
         level +
-        "\n\nAvailable Grades:\n\n" +
-        grades
+        "\n" +
+        grade
       );
+
+    }
+
+
+    function backToStudentType() {
+
+      document
+        .getElementById("gradeScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("studentScreen")
+        .classList.remove("hidden");
+
     }
 
   </script>
 
 </body>
 </html>
+        
