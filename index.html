@@ -1009,11 +1009,6 @@ textarea{
 
 
 <script>
-
-/* =========================
-   MAIN SCREEN SYSTEM
-========================= */
-
 let selectedLevel = "";
 let selectedGrade = "";
 
@@ -1031,11 +1026,7 @@ let reportData = {
     anonymous:""
 };
 
-
-/* SHOW SCREEN */
-
 function showScreen(id){
-
     document.querySelectorAll(".screen").forEach(function(screen){
         screen.classList.remove("active");
     });
@@ -1048,15 +1039,16 @@ function showScreen(id){
     }
 }
 
-
-/* =========================
-   STUDENT LEVEL
-========================= */
-
 function selectLevel(level){
-
     selectedLevel = level;
 
     const title = document.getElementById("gradeTitle");
-    const container = document.getElementById("gradeButtons")                            
-            
+    const container = document.getElementById("gradeButtons");
+
+    container.innerHTML = "";
+
+    let grades = [];
+
+    if(level === "Elementary"){
+        grades = ["Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6"];
+    } else if
