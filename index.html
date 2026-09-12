@@ -1,1124 +1,1061 @@
-
-          
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>NIHS SCHOOLSAFE</title>
+<title>NIHS SCHOOLSAFE</title>
 
-  <style>
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Georgia, "Times New Roman", serif;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+body{
+    min-height:100vh;
+    background:#5b18a8;
+    color:white;
+}
+
+.screen{
+    display:none;
+    min-height:100vh;
+    width:100%;
+    padding:25px 20px;
+}
+
+.screen.active{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+/* COLORS ONLY:
+   PURPLE #5b18a8
+   BLUE #07589c
+   GREEN #168447
+   WHITE #ffffff
+*/
+
+/* WELCOME */
+#welcome{
+    background:linear-gradient(160deg,#07589c,#5b18a8);
+    text-align:center;
+}
+
+.logo{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    object-fit:contain;
+    background:white;
+    padding:8px;
+    border:6px solid white;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+    margin-bottom:30px;
+}
+
+.main-title{
+    font-size:40px;
+    letter-spacing:5px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.subtitle{
+    font-size:21px;
+    line-height:1.7;
+    margin-bottom:35px;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:bold;
+    padding:16px 35px;
+    border-radius:30px;
+    background:white;
+    color:#5b18a8;
+    min-width:190px;
+    transition:.2s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+button:active{
+    transform:scale(.97);
+}
+
+.primary{
+    background:white;
+    color:#5b18a8;
+}
+
+.blue-btn{
+    background:#07589c;
+    color:white;
+}
+
+.green-btn{
+    background:#168447;
+    color:white;
+}
+
+.back-btn{
+    background:white;
+    color:#07589c;
+    min-width:120px;
+}
+
+/* GENERAL */
+.card{
+    width:100%;
+    max-width:550px;
+    background:white;
+    color:#222;
+    border-radius:25px;
+    padding:28px;
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:12px;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+p{
+    line-height:1.6;
+}
+
+.small{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* STUDENT TYPE */
+#studentType{
+    background:#07589c;
+}
+
+.choice{
+    width:100%;
+    margin:10px 0;
+    padding:18px;
+    border-radius:18px;
+    background:#5b18a8;
+    color:white;
+    border:3px solid transparent;
+}
+
+.choice:hover{
+    border-color:#168447;
+}
+
+/* GRADE */
+#gradeScreen{
+    background:#168447;
+}
+
+.grade-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.grade{
+    min-width:0;
+    background:#07589c;
+    color:white;
+}
+
+/* HOME */
+#home{
+    background:#5b18a8;
+}
+
+.home-card{
+    width:100%;
+    max-width:560px;
+}
+
+.home-title{
+    font-size:32px;
+    text-align:center;
+    margin-bottom:8px;
+}
+
+.home-subtitle{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.home-button{
+    width:100%;
+    margin:8px 0;
+    padding:18px;
+}
+
+.report-button{
+    background:#07589c;
+    color:white;
+}
+
+.help-button{
+    background:#168447;
+    color:white;
+}
+
+/* REPORT */
+#report{
+    background:#07589c;
+    justify-content:flex-start;
+    padding-top:35px;
+}
+
+.progress{
+    width:100%;
+    max-width:600px;
+    height:10px;
+    background:white;
+    border-radius:10px;
+    margin-bottom:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    background:#168447;
+    width:20%;
+    transition:.3s;
+}
+
+.step{
+    display:none;
+}
+
+.step.active{
+    display:block;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:15px;
+    margin-bottom:7px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:13px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    font-size:16px;
+}
+
+textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.options{
+    display:grid;
+    gap:10px;
+}
+
+.option{
+    background:#f5f5f5;
+    color:#222;
+    padding:14px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.option.selected{
+    background:#168447;
+    color:white;
+    border-color:#168447;
+}
+
+.nav-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:25px;
+}
+
+.nav-buttons button{
+    flex:1;
+    min-width:0;
+}
+
+.review-box{
+    background:#f5f5f5;
+    padding:15px;
+    border-radius:15px;
+    line-height:1.8;
+}
+
+/* OTHER PAGES */
+.info-page{
+    background:#5b18a8;
+    justify-content:flex-start;
+    padding-top:40px;
+}
+
+.info-page .card{
+    max-width:600px;
+}
+
+.info-page h1{
+    color:#5b18a8;
+}
+
+.info-page h2{
+    color:#07589c;
+    text-align:left;
+    margin-top:20px;
+}
+
+.info-page p{
+    margin-bottom:15px;
+}
+
+/* SUCCESS */
+.success-id{
+    font-size:28px;
+    color:#07589c;
+    font-weight:bold;
+    text-align:center;
+    margin:20px 0;
+    word-break:break-word;
+}
+
+/* MOBILE */
+@media(max-width:500px){
+
+    .main-title{
+        font-size:29px;
+        letter-spacing:3px;
     }
 
-    body {
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #16002b, #4b0082, #7b2cbf);
-      color: white;
+    .subtitle{
+        font-size:18px;
     }
 
-    .screen {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 25px;
+    .logo{
+        width:150px;
+        height:150px;
     }
 
-    .box {
-      width: 100%;
-      max-width: 520px;
-      text-align: center;
-      animation: fadeIn 0.5s ease;
+    .card{
+        padding:22px;
     }
 
-    .logo {
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-      margin-bottom: 25px;
+    .grade-grid{
+        grid-template-columns:1fr 1fr;
     }
-
-    .home-logo {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 36px;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-    }
-
-    h2 {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
-
-    h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 16px;
-      line-height: 1.6;
-      opacity: 0.92;
-      margin-bottom: 25px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    button {
-      border: none;
-      cursor: pointer;
-      font-family: Arial, sans-serif;
-      font-weight: bold;
-      transition: 0.2s;
-    }
-
-    button:active {
-      transform: scale(0.96);
-    }
-
-    .next-btn {
-      padding: 15px 50px;
-      border-radius: 30px;
-      background: white;
-      color: #4b0082;
-      font-size: 18px;
-    }
-
-    .choice {
-      display: block;
-      width: 100%;
-      margin: 13px 0;
-      padding: 18px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.14);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.30);
-      font-size: 17px;
-    }
-
-    .choice:hover,
-    .grade:hover,
-    .menu-btn:hover {
-      background: rgba(255,255,255,0.24);
-    }
-
-    .grade-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin: 20px 0;
-    }
-
-    .grade {
-      padding: 20px 10px;
-      border-radius: 15px;
-      background: rgba(255,255,255,0.14);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.30);
-      font-size: 16px;
-    }
-
-    .student-info {
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.15);
-      font-size: 13px;
-      margin-bottom: 25px;
-    }
-
-    .home-menu {
-      display: grid;
-      gap: 13px;
-    }
-
-    .menu-btn {
-      width: 100%;
-      padding: 18px;
-      border-radius: 16px;
-      color: white;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.30);
-      text-align: left;
-      font-size: 16px;
-    }
-
-    .menu-icon {
-      font-size: 25px;
-      margin-right: 10px;
-    }
-
-    .card {
-      text-align: left;
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.20);
-      border-radius: 18px;
-      padding: 20px;
-      margin-bottom: 15px;
-    }
-
-    .card p {
-      margin-bottom: 0;
-    }
-
-    .back-btn {
-      margin-top: 10px;
-      padding: 12px 25px;
-      border-radius: 25px;
-      background: transparent;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.50);
-      font-size: 14px;
-    }
-
-    .primary-btn {
-      width: 100%;
-      padding: 16px;
-      border-radius: 15px;
-      background: white;
-      color: #4b0082;
-      font-size: 17px;
-      margin-top: 10px;
-    }
-
-    /* REPORT FORM */
-
-    .progress {
-      display: flex;
-      justify-content: space-between;
-      margin: 20px 0 25px;
-      gap: 5px;
-    }
-
-    .progress span {
-      flex: 1;
-      height: 6px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.25);
-    }
-
-    .progress span.active {
-      background: white;
-    }
-
-    .form-group {
-      text-align: left;
-      margin-bottom: 18px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-      font-size: 15px;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.30);
-      background: rgba(255,255,255,0.12);
-      color: white;
-      font-size: 15px;
-      outline: none;
-    }
-
-    textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: rgba(255,255,255,0.65);
-    }
-
-    select option {
-      color: black;
-    }
-
-    .option-grid {
-      display: grid;
-      gap: 10px;
-    }
-
-    .option-btn {
-      width: 100%;
-      padding: 15px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.12);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.30);
-      text-align: left;
-    }
-
-    .option-btn.selected {
-      background: white;
-      color: #4b0082;
-    }
-
-    .nav-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .nav-buttons button {
-      flex: 1;
-    }
-
-    .review-item {
-      padding: 13px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.18);
-      text-align: left;
-    }
-
-    .review-item:last-child {
-      border-bottom: none;
-    }
-
-    .review-label {
-      font-size: 12px;
-      opacity: 0.7;
-      margin-bottom: 4px;
-    }
-
-    .review-value {
-      font-size: 15px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-
-    .success-icon {
-      font-size: 65px;
-      margin-bottom: 15px;
-    }
-
-    .report-id {
-      padding: 18px;
-      border-radius: 15px;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      margin: 20px 0;
-    }
-
-    .report-id strong {
-      display: block;
-      font-size: 25px;
-      letter-spacing: 2px;
-      margin-top: 8px;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-  </style>
+}
+</style>
 </head>
-
 
 <body>
 
+<!-- ================= WELCOME ================= -->
 
-  <!-- =========================================
-       WELCOME
-  ========================================== -->
+<section id="welcome" class="screen active">
 
-  <div class="screen" id="welcomeScreen">
+    <img src="school-logo.jpg"
+         class="logo"
+         alt="New Israel High School Logo">
 
-    <div class="box">
+    <div class="main-title">
+        NIHS SCHOOLSAFE
+    </div>
 
-      <img
-        src="school-logo.jpg"
-        class="logo"
-        alt="NIHS School Logo"
-      >
-
-      <h1>NIHS SCHOOLSAFE</h1>
-
-      <p>
+    <div class="subtitle">
         New Israel High School<br>
         Student Safety & Reporting System
-      </p>
+    </div>
 
-      <button
-        class="next-btn"
-        onclick="showStudentType()"
-      >
+    <button onclick="showScreen('studentType')">
         NEXT
-      </button>
+    </button>
 
-    </div>
-
-  </div>
+</section>
 
 
+<!-- ================= STUDENT TYPE ================= -->
 
-  <!-- =========================================
-       STUDENT TYPE
-  ========================================== -->
+<section id="studentType" class="screen">
 
-  <div class="screen hidden" id="studentScreen">
+    <div class="card">
 
-    <div class="box">
+        <h1>Who are you?</h1>
 
-      <h2>WELCOME!</h2>
+        <p class="small">
+            Please select your student level.
+        </p>
 
-      <p>
-        What type of student are you?
-      </p>
+        <button class="choice"
+                onclick="selectLevel('Elementary')">
+            Elementary<br>
+            <small>Grades 1–6</small>
+        </button>
 
-      <button
-        class="choice"
-        onclick="showGrades('Elementary')"
-      >
-        🏫 ELEMENTARY
+        <button class="choice"
+                onclick="selectLevel('Junior High School')">
+            Junior High School<br>
+            <small>Grades 7–10</small>
+        </button>
+
+        <button class="choice"
+                onclick="selectLevel('Senior High School')">
+            Senior High School<br>
+            <small>Grades 11–12</small>
+        </button>
+
         <br>
-        <small>Grades 1–6</small>
-      </button>
 
-      <button
-        class="choice"
-        onclick="showGrades('Junior High School')"
-      >
-        🎓 JUNIOR HIGH SCHOOL
+        <button class="back-btn"
+                onclick="showScreen('welcome')">
+            BACK
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= GRADE ================= -->
+
+<section id="gradeScreen" class="screen">
+
+    <div class="card">
+
+        <h1 id="gradeTitle">
+            Select Grade
+        </h1>
+
+        <p class="small">
+            Choose your grade level.
+        </p>
+
+        <div id="gradeButtons" class="grade-grid"></div>
+
         <br>
-        <small>Grades 7–10</small>
-      </button>
 
-      <button
-        class="choice"
-        onclick="showGrades('Senior High School')"
-      >
-        🎓 SENIOR HIGH SCHOOL
+        <button class="back-btn"
+                onclick="showScreen('studentType')">
+            BACK
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="screen">
+
+    <div class="card home-card">
+
+        <h1 class="home-title">
+            NIHS SCHOOLSAFE
+        </h1>
+
+        <p class="home-subtitle">
+            Student Safety & Reporting System
+        </p>
+
+        <button class="home-button report-button"
+                onclick="startReport()">
+            📝 MAKE A REPORT
+        </button>
+
+        <button class="home-button"
+                onclick="showScreen('track')">
+            🔎 TRACK MY REPORT
+        </button>
+
+        <button class="home-button help-button"
+                onclick="showScreen('help')">
+            🚨 NEED IMMEDIATE HELP
+        </button>
+
+        <button class="home-button"
+                onclick="showScreen('privacy')">
+            🔒 PRIVACY & SAFETY
+        </button>
+
+        <button class="home-button"
+                onclick="showScreen('rights')">
+            📚 KNOW YOUR RIGHTS
+        </button>
+
+        <button class="home-button"
+                onclick="showScreen('about')">
+            ℹ️ ABOUT NIHS SCHOOLSAFE
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= REPORT ================= -->
+
+<section id="report" class="screen">
+
+    <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <div class="card">
+
+        <!-- STEP 1 -->
+        <div id="step1" class="step active">
+
+            <h2>Step 1 — What happened?</h2>
+
+            <label>Concern Category</label>
+
+            <div class="options">
+
+                <div class="option"
+                     onclick="chooseOption(this,'category')">
+                    Bullying
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'category')">
+                    Cyberbullying
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'category')">
+                    Privacy Violation
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'category')">
+                    Harassment
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'category')">
+                    Threat / Intimidation
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'category')">
+                    Discrimination
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'category')">
+                    Unsafe Environment
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'category')">
+                    Other Concern
+                </div>
+
+            </div>
+
+            <label>Description</label>
+
+            <textarea id="description"
+                      placeholder="Please describe what happened..."></textarea>
+
+            <div class="nav-buttons">
+
+                <button class="back-btn"
+                        onclick="showScreen('home')">
+                    BACK
+                </button>
+
+                <button class="blue-btn"
+                        onclick="nextStep(2)">
+                    NEXT
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+        <div id="step2" class="step">
+
+            <h2>Step 2 — Where & when?</h2>
+
+            <label>Location</label>
+
+            <input id="location"
+                   type="text"
+                   placeholder="Where did it happen?">
+
+            <label>Date</label>
+
+            <input id="incidentDate"
+                   type="date">
+
+            <label>Time</label>
+
+            <input id="incidentTime"
+                   type="time">
+
+            <label>Did this happen more than once?</label>
+
+            <div class="options">
+
+                <div class="option"
+                     onclick="chooseOption(this,'repeated')">
+                    Yes
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'repeated')">
+                    No
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'repeated')">
+                    Not sure
+                </div>
+
+            </div>
+
+            <div class="nav-buttons">
+
+                <button class="back-btn"
+                        onclick="nextStep(1)">
+                    BACK
+                </button>
+
+                <button class="blue-btn"
+                        onclick="nextStep(3)">
+                    NEXT
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 3 -->
+        <div id="step3" class="step">
+
+            <h2>Step 3 — People involved</h2>
+
+            <label>Who was involved?</label>
+
+            <textarea id="involved"
+                      placeholder="You may describe the person/s involved."></textarea>
+
+            <label>Witnesses</label>
+
+            <textarea id="witnesses"
+                      placeholder="Were there witnesses?"></textarea>
+
+            <div class="nav-buttons">
+
+                <button class="back-btn"
+                        onclick="nextStep(2)">
+                    BACK
+                </button>
+
+                <button class="blue-btn"
+                        onclick="nextStep(4)">
+                    NEXT
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 4 -->
+        <div id="step4" class="step">
+
+            <h2>Step 4 — Safety</h2>
+
+            <label>How urgent is this?</label>
+
+            <div class="options">
+
+                <div class="option"
+                     onclick="chooseOption(this,'urgency')">
+                    Normal
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'urgency')">
+                    Needs Attention
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'urgency')">
+                    Urgent
+                </div>
+
+            </div>
+
+            <label>Are you in immediate danger?</label>
+
+            <div class="options">
+
+                <div class="option"
+                     onclick="chooseOption(this,'danger')">
+                    Yes
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'danger')">
+                    No
+                </div>
+
+            </div>
+
+            <label>How would you like to submit?</label>
+
+            <div class="options">
+
+                <div class="option"
+                     onclick="chooseOption(this,'anonymous')">
+                    Anonymous
+                </div>
+
+                <div class="option"
+                     onclick="chooseOption(this,'anonymous')">
+                    With my information
+                </div>
+
+            </div>
+
+            <div class="nav-buttons">
+
+                <button class="back-btn"
+                        onclick="nextStep(3)">
+                    BACK
+                </button>
+
+                <button class="blue-btn"
+                        onclick="prepareReview()">
+                    REVIEW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 5 -->
+        <div id="step5" class="step">
+
+            <h2>Review Report</h2>
+
+            <div id="reviewBox"
+                 class="review-box">
+            </div>
+
+            <div class="nav-buttons">
+
+                <button class="back-btn"
+                        onclick="nextStep(4)">
+                    BACK
+                </button>
+
+                <button class="green-btn"
+                        onclick="submitReport()">
+                    SUBMIT REPORT
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUCCESS -->
+        <div id="successStep"
+             class="step">
+
+            <h2>✅ Report Submitted</h2>
+
+            <p class="small">
+                Please save your Report ID.
+            </p>
+
+            <div id="reportID"
+                 class="success-id">
+            </div>
+
+            <p class="small">
+                Use this ID later to track your report.
+            </p>
+
+            <button class="green-btn"
+                    onclick="showScreen('home')">
+                DONE
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TRACK ================= -->
+
+<section id="track" class="screen info-page">
+
+    <div class="card">
+
+        <h1>🔎 Track My Report</h1>
+
+        <label>Report ID</label>
+
+        <input id="trackID"
+               placeholder="Example: NIHS-123456">
+
+        <br><br>
+
+        <button class="blue-btn"
+                onclick="trackReport()">
+            TRACK REPORT
+        </button>
+
+        <br><br>
+
+        <div id="trackResult"></div>
+
         <br>
-        <small>Grades 11–12</small>
-      </button>
+
+        <button class="back-btn"
+                onclick="showScreen('home')">
+            BACK
+        </button>
 
     </div>
 
-  </div>
+</section>
 
 
+<!-- ================= HELP ================= -->
 
-  <!-- =========================================
-       GRADE
-  ========================================== -->
+<section id="help" class="screen info-page">
 
-  <div class="screen hidden" id="gradeScreen">
+    <div class="card">
 
-    <div class="box">
+        <h1>🚨 Need Immediate Help?</h1>
 
-      <h2 id="levelTitle">
-        Select Your Grade
-      </h2>
+        <p>
+            If you are in immediate danger, move to a safe place
+            and tell a trusted teacher, school staff member,
+            parent, guardian, or other trusted adult immediately.
+        </p>
 
-      <p>
-        Please select your grade level.
-      </p>
+        <br>
 
-      <div
-        class="grade-grid"
-        id="gradeButtons"
-      ></div>
+        <p>
+            NIHS SCHOOLSAFE is for reporting and documenting
+            student safety concerns. It should not replace
+            emergency assistance.
+        </p>
 
-      <button
-        class="back-btn"
-        onclick="backToStudentType()"
-      >
-        ← BACK
-      </button>
+        <br>
+
+        <button class="back-btn"
+                onclick="showScreen('home')">
+            BACK
+        </button>
 
     </div>
 
-  </div>
+</section>
 
 
+<!-- ================= PRIVACY ================= -->
 
-  <!-- =========================================
-       HOME
-  ========================================== -->
+<section id="privacy" class="screen info-page">
 
-  <div class="screen hidden" id="homeScreen">
+    <div class="card">
 
-    <div class="box">
+        <h1>🔒 Privacy & Safety</h1>
 
-      <img
-        src="school-logo.jpg"
-        class="home-logo"
-        alt="NIHS Logo"
-      >
+        <h2>Your Privacy</h2>
 
-      <h2>NIHS SCHOOLSAFE</h2>
+        <p>
+            You may choose to submit a report anonymously.
+            Only information necessary for handling the concern
+            should be provided.
+        </p>
 
-      <div
-        class="student-info"
-        id="studentInfo"
-      >
-        Student
-      </div>
+        <h2>Safety</h2>
 
-      <div class="home-menu">
+        <p>
+            Do not include passwords, account credentials,
+            payment information, or other unnecessary sensitive
+            information in your report.
+        </p>
 
-        <button
-          class="menu-btn"
-          onclick="startReport()"
-        >
-          <span class="menu-icon">📝</span>
-          MAKE A REPORT
+        <br>
+
+        <button class="back-btn"
+                onclick="showScreen('home')">
+            BACK
         </button>
-
-        <button
-          class="menu-btn"
-          onclick="showPage('trackPage')"
-        >
-          <span class="menu-icon">🔎</span>
-          TRACK MY REPORT
-        </button>
-
-        <button
-          class="menu-btn"
-          onclick="showPage('helpPage')"
-        >
-          <span class="menu-icon">🚨</span>
-          NEED IMMEDIATE HELP
-        </button>
-
-        <button
-          class="menu-btn"
-          onclick="showPage('privacyPage')"
-        >
-          <span class="menu-icon">🔒</span>
-          PRIVACY & SAFETY
-        </button>
-
-        <button
-          class="menu-btn"
-          onclick="showPage('rightsPage')"
-        >
-          <span class="menu-icon">📚</span>
-          KNOW YOUR RIGHTS
-        </button>
-
-        <button
-          class="menu-btn"
-          onclick="showPage('aboutPage')"
-        >
-          <span class="menu-icon">ℹ️</span>
-          ABOUT NIHS SCHOOLSAFE
-        </button>
-
-      </div>
 
     </div>
 
-  </div>
+</section>
 
 
+<!-- ================= RIGHTS ================= -->
 
-  <!-- =========================================
-       REPORT — STEP 1
-  ========================================== -->
+<section id="rights" class="screen info-page">
 
-  <div class="screen hidden" id="reportStep1">
+    <div class="card">
 
-    <div class="box">
+        <h1>📚 Know Your Rights</h1>
 
-      <h2>📝 MAKE A REPORT</h2>
+        <h2>Right to Safety</h2>
 
-      <p>
-        Step 1 of 5 — What happened?
-      </p>
+        <p>
+            Every student deserves a safe learning environment.
+        </p>
 
-      <div class="progress">
-        <span class="active"></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+        <h2>Right to Be Heard</h2>
 
+        <p>
+            Students should be able to report concerns and
+            have their concerns taken seriously.
+        </p>
 
-      <div class="form-group">
+        <h2>Right to Privacy</h2>
 
-        <label>
-          What type of concern are you reporting?
-        </label>
+        <p>
+            Personal information should be handled responsibly
+            and only used when necessary.
+        </p>
 
-        <select id="category">
+        <br>
 
-          <option value="">
-            Select a concern
-          </option>
-
-          <option>Bullying</option>
-
-          <option>Cyberbullying</option>
-
-          <option>Privacy Violation</option>
-
-          <option>Harassment</option>
-
-          <option>Threat / Intimidation</option>
-
-          <option>Discrimination</option>
-
-          <option>Unsafe Environment</option>
-
-          <option>Other Concern</option>
-
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Please describe what happened.
-        </label>
-
-        <textarea
-          id="description"
-          placeholder="Tell us what happened in as much detail as you can..."
-        ></textarea>
-
-      </div>
-
-
-      <div class="nav-buttons">
-
-        <button
-          class="back-btn"
-          onclick="goHome()"
-        >
-          CANCEL
+        <button class="back-btn"
+                onclick="showScreen('home')">
+            BACK
         </button>
-
-        <button
-          class="primary-btn"
-          onclick="nextReportStep(2)"
-        >
-          NEXT →
-        </button>
-
-      </div>
 
     </div>
 
-  </div>
+</section>
 
 
+<!-- ================= ABOUT ================= -->
 
-  <!-- =========================================
-       REPORT — STEP 2
-  ========================================== -->
+<section id="about" class="screen info-page">
 
-  <div class="screen hidden" id="reportStep2">
+    <div class="card">
 
-    <div class="box">
+        <h1>ℹ️ NIHS SCHOOLSAFE</h1>
 
-      <h2>📍 WHERE & WHEN?</h2>
+        <p>
+            <strong>NIHS SCHOOLSAFE</strong> is a Student Safety
+            & Reporting System designed for
+            <strong>New Israel High School</strong>.
+        </p>
 
-      <p>
-        Step 2 of 5 — Tell us where and when it happened.
-      </p>
+        <br>
 
-      <div class="progress">
-        <span class="active"></span>
-        <span class="active"></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+        <p>
+            Its purpose is to provide students with a simple
+            way to report safety concerns and help the school
+            respond appropriately.
+        </p>
 
+        <br>
 
-      <div class="form-group">
+        <p style="text-align:center;">
+            💙 🤍 💚 💜
+        </p>
 
-        <label>
-          Where did it happen?
-        </label>
+        <br>
 
-        <input
-          type="text"
-          id="location"
-          placeholder="Example: Classroom, hallway, online..."
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Date of incident
-        </label>
-
-        <input
-          type="date"
-          id="incidentDate"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Approximate time
-        </label>
-
-        <input
-          type="time"
-          id="incidentTime"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Did this happen more than once?
-        </label>
-
-        <div class="option-grid">
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'repeated', 'Yes')"
-          >
-            Yes
-          </button>
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'repeated', 'No')"
-          >
-            No
-          </button>
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'repeated', 'Not sure')"
-          >
-            Not sure
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="nav-buttons">
-
-        <button
-          class="back-btn"
-          onclick="showReportStep(1)"
-        >
-          ← BACK
+        <button class="back-btn"
+                onclick="showScreen('home')">
+            BACK
         </button>
-
-        <button
-          class="primary-btn"
-          onclick="nextReportStep(3)"
-        >
-          NEXT →
-        </button>
-
-      </div>
 
     </div>
 
-  </div>
+</section>
 
 
+<script>
 
-  <!-- =========================================
-       REPORT — STEP 3
-  ========================================== -->
+/* =========================
+   MAIN SCREEN SYSTEM
+========================= */
 
-  <div class="screen hidden" id="reportStep3">
+let selectedLevel = "";
+let selectedGrade = "";
 
-    <div class="box">
+let reportData = {
+    category:"",
+    description:"",
+    location:"",
+    date:"",
+    time:"",
+    repeated:"",
+    involved:"",
+    witnesses:"",
+    urgency:"",
+    danger:"",
+    anonymous:""
+};
 
-      <h2>👥 WHO WAS INVOLVED?</h2>
 
-      <p>
-        Step 3 of 5 — Tell us about the people involved.
-      </p>
+/* SHOW SCREEN */
 
-      <div class="progress">
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span></span>
-        <span></span>
-      </div>
+function showScreen(id){
 
+    document.querySelectorAll(".screen").forEach(function(screen){
+        screen.classList.remove("active");
+    });
 
-      <div class="form-group">
+    const target = document.getElementById(id);
 
-        <label>
-          Who was involved?
-        </label>
+    if(target){
+        target.classList.add("active");
+        window.scrollTo(0,0);
+    }
+}
 
-        <textarea
-          id="involved"
-          placeholder="You may describe the person or people involved. Names are optional."
-        ></textarea>
 
-      </div>
+/* =========================
+   STUDENT LEVEL
+========================= */
 
+function selectLevel(level){
 
-      <div class="form-group">
+    selectedLevel = level;
 
-        <label>
-          Were there witnesses?
-        </label>
-
-        <textarea
-          id="witnesses"
-          placeholder="If you know, describe any witnesses. You may leave this blank."
-        ></textarea>
-
-      </div>
-
-
-      <div class="nav-buttons">
-
-        <button
-          class="back-btn"
-          onclick="showReportStep(2)"
-        >
-          ← BACK
-        </button>
-
-        <button
-          class="primary-btn"
-          onclick="nextReportStep(4)"
-        >
-          NEXT →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <!-- =========================================
-       REPORT — STEP 4
-  ========================================== -->
-
-  <div class="screen hidden" id="reportStep4">
-
-    <div class="box">
-
-      <h2>🚨 SAFETY & PRIVACY</h2>
-
-      <p>
-        Step 4 of 5 — Help us understand the urgency.
-      </p>
-
-      <div class="progress">
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span></span>
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          How urgent is this concern?
-        </label>
-
-        <div class="option-grid">
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'urgency', 'Normal')"
-          >
-            🟢 Normal
-          </button>
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'urgency', 'Needs Attention')"
-          >
-            🟡 Needs Attention
-          </button>
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'urgency', 'Urgent')"
-          >
-            🔴 Urgent
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Are you currently in immediate danger?
-        </label>
-
-        <div class="option-grid">
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'danger', 'Yes')"
-          >
-            Yes
-          </button>
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'danger', 'No')"
-          >
-            No
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          How would you like to submit?
-        </label>
-
-        <div class="option-grid">
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'anonymous', 'Anonymous')"
-          >
-            🔒 Submit Anonymously
-          </button>
-
-          <button
-            class="option-btn"
-            onclick="chooseOption(this, 'anonymous', 'With my information')"
-          >
-            👤 Include My Information
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="nav-buttons">
-
-        <button
-          class="back-btn"
-          onclick="showReportStep(3)"
-        >
-          ← BACK
-        </button>
-
-        <button
-          class="primary-btn"
-          onclick="nextReportStep(5)"
-        >
-          REVIEW →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <!-- =========================================
-       REPORT — STEP 5 REVIEW
-  ========================================== -->
-
-  <div class="screen hidden" id="reportStep5">
-
-    <div class="box">
-
-      <h2>🔎 REVIEW REPORT</h2>
-
-      <p>
-        Step 5 of 5 — Please review your information.
-      </p>
-
-      <div class="progress">
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-      </div>
-
-
-      <div class="card">
-
-        <div class="review-item">
-
-          <div class="review-label">
-            STUDENT
-          </div>
-
-          <div
-            class="review-value"
-            id="reviewStudent"
-          ></div>
-
-        </div>
-
-
-        <div class="review-item">
-
-          <div class="review-label">
-            CONCERN
-          </div>
-
-          <div
-            class="review-value"
-            id="reviewCategory"
-          ></div>
-
-        </div>
-
-
-        <div class="review-item">
-
-          <div class="review-label">
-            DESCRIPTION
-          </div>
-
-          <div
-            class="review-value"
-            id="reviewDescription"
-          ></div>
-
-        </div>
-
-
-        <div class="review-item">
-
-          <div class="review-label">
-            LOCATION
-          </div>
-
-          <div
-            class="review-value"
-            id="reviewLocation"
-          ></div>
-
-        </div>
-
-
-        <div class="review-item">
-
-          <div class="review-label">
-            DATE & TIME
-          </div>
-
-          <div
-            class="review-value"
-            id="reviewDateTime"
-          ></div>
-
-        </div>
-
-
-        <div class="review-item">
-
-          <div class="review-label">
-            REPEATED
-          </div>
-
-          <div
-            class="review-value"
-            id="reviewRepeated"
-          ></div>
-
-        </div>
-
-
-        <div class="review-item">
-
-          <div class="review-label">
-            PEOPLE INVOLVED
-          </div>
-
-          <div
-            class="review-value"
-            id="reviewInvolved"
-          ></div>
-
-        </div>
-
-
-        <div class="review-item">
-
-          <div class="review-label">
-            WITNESSES
-          </div>
-
-          <div
-            class="review-value"
-            id="reviewWitnesses"
-          ></div>
-
-        </div>
-
-
-        <div class="review-item">
-
-          <div class="review-label">
-            URGENCY
-          </div>
-
-          <div
-            class="review-value"
-            id="reviewUrgency"
-          ></div>
-
-        </div>
-
-
-        <div class="re
+    const title = document.getElementById("gradeTitle");
+    const container = document.getElementById("gradeButtons")
